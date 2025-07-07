@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Users, MapPin, Bell, Calendar, Shield, Phone } from 'lucide-react';
+import { Switch } from "@/components/ui/switch";
+import { Progress } from "@/components/ui/progress";
+import { Heart, Users, MapPin, Bell, Calendar, Shield, Phone, Trophy, Star, Activity } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
 
@@ -13,7 +15,7 @@ const Dashboard = () => {
   const { toast } = useToast();
   const [isAvailable, setIsAvailable] = useState(true);
 
-  // Mock data for demonstration
+  // Enhanced mock data
   const mockMatches = [
     {
       id: 1,
@@ -22,7 +24,8 @@ const Dashboard = () => {
       location: "Downtown Hospital, 2.1 miles away",
       urgency: "Critical",
       timePosted: "15 minutes ago",
-      compatibility: 100
+      compatibility: 100,
+      urgencyLevel: 5
     },
     {
       id: 2,
@@ -31,7 +34,8 @@ const Dashboard = () => {
       location: "Central Medical Center, 3.5 miles away",
       urgency: "Normal",
       timePosted: "1 hour ago",
-      compatibility: 85
+      compatibility: 85,
+      urgencyLevel: 2
     },
     {
       id: 3,
@@ -40,29 +44,21 @@ const Dashboard = () => {
       location: "City General Hospital, 5.2 miles away",
       urgency: "Normal",
       timePosted: "2 hours ago",
-      compatibility: 75
+      compatibility: 75,
+      urgencyLevel: 1
     }
   ];
 
-  const mockDonors = [
-    {
-      id: 1,
-      name: "David Kim",
-      bloodGroup: "O-",
-      location: "3.2 miles away",
-      lastDonation: "3 months ago",
-      status: "Available",
-      rating: 4.9
-    },
-    {
-      id: 2,
-      name: "Lisa Thompson",
-      bloodGroup: "A+",
-      location: "1.8 miles away",
-      lastDonation: "2 months ago",
-      status: "Available",
-      rating: 4.8
-    }
+  const donationHistory = [
+    { date: '2024-01-15', location: 'SF General Hospital', amount: '450ml', type: 'Whole Blood' },
+    { date: '2023-10-20', location: 'Red Cross Center', amount: '250ml', type: 'Platelets' },
+    { date: '2023-07-10', location: 'Community Blood Drive', amount: '450ml', type: 'Whole Blood' },
+  ];
+
+  const achievements = [
+    { name: 'Life Saver', description: '10+ donations', icon: Heart, earned: true },
+    { name: 'Hero', description: '5+ emergency responses', icon: Shield, earned: true },
+    { name: 'Community Champion', description: 'Top donor in area', icon: Trophy, earned: false },
   ];
 
   const handleContactDonor = (donorName: string) => {
@@ -81,6 +77,9 @@ const Dashboard = () => {
         : "You're now available for donation requests.",
     });
   };
+
+  const nextEligibleDate = new Date();
+  nextEligibleDate.setDate(nextEligibleDate.getDate() + 45);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-red-50">
@@ -126,6 +125,16 @@ const Dashboard = () => {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back, John!</h1>
           <p className="text-gray-600">Your blood type: <span className="font-semibold text-red-600">O+</span> • Location: <span className="font-semibold">San Francisco, CA</span></p>
+          <div className="mt-2 flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              <span className="text-sm text-gray-600">Next eligible:</span>
+              <span className="text-sm font-medium text-green-600">{nextEligibleDate.toLocaleDateString()}</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Star className="w-4 h-4 text-yellow-500" />
+              <span className="text-sm font-medium">Level 3 Donor</span>
+            </div>
+          </div>
         </div>
 
         {/* Quick Stats */}
@@ -170,8 +179,8 @@ const Dashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-purple-100">Compatibility</p>
-                  <p className="text-2xl font-bold">98%</p>
+                  <p className="text-purple-100">Donor Score</p>
+                  <p className="text-2xl font-bold">4.9★</p>
                 </div>
                 <Shield className="w-8 h-8 text-purple-200" />
               </div>
@@ -181,12 +190,13 @@ const Dashboard = () => {
 
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Column - Matches */}
+          {/* Left Column - Matches & History */}
           <div className="lg:col-span-2">
             <Tabs defaultValue="matches" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
+              <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="matches">Smart Matches</TabsTrigger>
-                <TabsTrigger value="requests">My Requests</TabsTrigger>
+                <TabsTrigger value="history">History</TabsTrigger>
+                <TabsTrigger value="achievements">Achievements</TabsTrigger>
               </TabsList>
               
               <TabsContent value="matches" className="space-y-4">
@@ -219,6 +229,14 @@ const Dashboard = () => {
                         </div>
                       </div>
                       
+                      <div className="mb-3">
+                        <div className="flex items-center justify-between text-sm mb-1">
+                          <span>Urgency Level</span>
+                          <span>{match.urgencyLevel}/5</span>
+                        </div>
+                        <Progress value={match.urgencyLevel * 20} className="h-2" />
+                      </div>
+                      
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-4">
                           <div className="text-center">
@@ -244,22 +262,56 @@ const Dashboard = () => {
                 ))}
               </TabsContent>
               
-              <TabsContent value="requests" className="space-y-4">
-                <div className="text-center py-12">
-                  <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">No Active Requests</h3>
-                  <p className="text-gray-600 mb-4">You haven't posted any blood requests yet.</p>
-                  <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800">
-                    Create New Request
-                  </Button>
+              <TabsContent value="history" className="space-y-4">
+                <h2 className="text-xl font-semibold text-gray-900">Donation History</h2>
+                {donationHistory.map((donation, index) => (
+                  <Card key={index} className="border border-green-100">
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="font-medium text-gray-900">{donation.type}</p>
+                          <p className="text-sm text-gray-600">{donation.location}</p>
+                          <p className="text-xs text-gray-500">{donation.date}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-bold text-green-600">{donation.amount}</p>
+                          <Badge variant="outline" className="border-green-200 text-green-700">
+                            Completed
+                          </Badge>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </TabsContent>
+
+              <TabsContent value="achievements" className="space-y-4">
+                <h2 className="text-xl font-semibold text-gray-900">Your Achievements</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {achievements.map((achievement, index) => (
+                    <Card key={index} className={`border ${achievement.earned ? 'border-yellow-200 bg-yellow-50' : 'border-gray-200'}`}>
+                      <CardContent className="p-4">
+                        <div className="flex items-center space-x-3">
+                          <achievement.icon className={`w-8 h-8 ${achievement.earned ? 'text-yellow-600' : 'text-gray-400'}`} />
+                          <div>
+                            <p className="font-medium text-gray-900">{achievement.name}</p>
+                            <p className="text-sm text-gray-600">{achievement.description}</p>
+                          </div>
+                          {achievement.earned && (
+                            <Trophy className="w-5 h-5 text-yellow-500" />
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
               </TabsContent>
             </Tabs>
           </div>
 
-          {/* Right Column - Quick Actions & Availability */}
+          {/* Right Column - Availability & Quick Actions */}
           <div className="space-y-6">
-            {/* Availability Toggle */}
+            {/* Enhanced Availability Toggle */}
             <Card className="border-red-100">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
@@ -270,7 +322,7 @@ const Dashboard = () => {
                   Control your availability for donation requests
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-4">
                 <div className="flex items-center justify-between mb-4">
                   <span className="font-medium">
                     {isAvailable ? "Available for Donations" : "Temporarily Unavailable"}
@@ -279,41 +331,55 @@ const Dashboard = () => {
                     {isAvailable ? "ONLINE" : "OFFLINE"}
                   </Badge>
                 </div>
-                <Button 
-                  onClick={handleToggleAvailability}
-                  variant={isAvailable ? "outline" : "default"}
-                  className="w-full"
-                >
-                  {isAvailable ? "Mark Unavailable" : "Mark Available"}
-                </Button>
+                
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600">Quick Toggle</span>
+                  <Switch
+                    checked={isAvailable}
+                    onCheckedChange={handleToggleAvailability}
+                  />
+                </div>
+                
+                <div className="pt-2 border-t">
+                  <div className="flex items-center space-x-2 text-sm text-gray-600 mb-2">
+                    <Activity className="w-4 h-4" />
+                    <span>Health Status: Eligible</span>
+                  </div>
+                  <Progress value={85} className="h-2" />
+                  <p className="text-xs text-gray-500 mt-1">Health score: 85/100</p>
+                </div>
               </CardContent>
             </Card>
 
-            {/* Nearby Donors */}
+            {/* Quick Actions */}
             <Card className="border-blue-100">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <Users className="w-5 h-5 text-blue-600" />
-                  <span>Nearby Donors</span>
+                  <Shield className="w-5 h-5 text-blue-600" />
+                  <span>Quick Actions</span>
                 </CardTitle>
-                <CardDescription>
-                  Active donors in your area
-                </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                {mockDonors.map((donor) => (
-                  <div key={donor.id} className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                    <div>
-                      <p className="font-medium text-gray-900">{donor.name}</p>
-                      <p className="text-sm text-gray-600">{donor.bloodGroup} • {donor.location}</p>
-                    </div>
-                    <Badge variant="outline" className="border-green-200 text-green-700">
-                      {donor.status}
-                    </Badge>
-                  </div>
-                ))}
-                <Button variant="outline" className="w-full border-blue-200 text-blue-700 hover:bg-blue-50">
-                  View All Donors
+              <CardContent className="space-y-3">
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start border-blue-200 text-blue-700 hover:bg-blue-50"
+                >
+                  <MapPin className="w-4 h-4 mr-2" />
+                  View Nearby Centers
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start border-green-200 text-green-700 hover:bg-green-50"
+                >
+                  <Heart className="w-4 h-4 mr-2" />
+                  Schedule Donation
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start border-purple-200 text-purple-700 hover:bg-purple-50"
+                >
+                  <Users className="w-4 h-4 mr-2" />
+                  Find Donors
                 </Button>
               </CardContent>
             </Card>
