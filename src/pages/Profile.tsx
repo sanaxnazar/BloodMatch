@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,7 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Heart, MapPin, Calendar, Shield, User, Bell } from 'lucide-react';
+import { Switch } from "@/components/ui/switch";
+import { Heart, MapPin, Calendar, Shield, User, Bell, Moon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
 
@@ -25,7 +25,8 @@ const Profile = () => {
     lastDonation: '2024-01-15',
     emergencyContact: '+1 (555) 987-6543',
     medicalConditions: 'None',
-    notifications: true
+    notifications: true,
+    darkMode: false
   });
 
   const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
@@ -278,24 +279,31 @@ const Profile = () => {
               </CardContent>
             </Card>
 
-            {/* Notification Settings */}
+            {/* Settings */}
             <Card className="border-purple-100">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <Bell className="w-5 h-5 text-purple-600" />
-                  <span>Notifications</span>
+                  <span>Settings</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-sm">Push Notifications</span>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleInputChange('notifications', !profileData.notifications)}
-                  >
-                    {profileData.notifications ? 'ON' : 'OFF'}
-                  </Button>
+                  <Switch
+                    checked={profileData.notifications}
+                    onCheckedChange={(checked) => handleInputChange('notifications', checked)}
+                  />
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <Moon className="w-4 h-4 text-gray-600" />
+                    <span className="text-sm">Dark Mode</span>
+                  </div>
+                  <Switch
+                    checked={profileData.darkMode}
+                    onCheckedChange={(checked) => handleInputChange('darkMode', checked)}
+                  />
                 </div>
               </CardContent>
             </Card>
