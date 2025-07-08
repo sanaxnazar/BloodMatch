@@ -48,6 +48,13 @@ const Index = () => {
             <div className="flex space-x-3">
               <Button 
                 variant="ghost" 
+                onClick={() => navigate('/mockups')}
+                className="text-blue-700 hover:text-blue-800 hover:bg-blue-50"
+              >
+                View Mockups
+              </Button>
+              <Button 
+                variant="ghost" 
                 onClick={() => navigate('/login')}
                 className="text-red-700 hover:text-red-800 hover:bg-red-50"
               >
