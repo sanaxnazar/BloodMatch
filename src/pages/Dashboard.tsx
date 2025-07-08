@@ -6,13 +6,16 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { Progress } from "@/components/ui/progress";
-import { Heart, Users, MapPin, Bell, Calendar, Shield, Phone, Trophy, Star, Activity } from 'lucide-react';
+import { Heart, Users, MapPin, Bell, Calendar, Shield, Phone, Trophy, Star, Activity, Moon, Sun, Palette } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
+import { useTheme } from "@/contexts/ThemeContext";
+import { EmergencySOSButton } from "@/components/EmergencySOSButton";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { theme, setTheme, toggleDarkMode, isDarkMode } = useTheme();
   const [isAvailable, setIsAvailable] = useState(true);
 
   // Enhanced mock data
@@ -82,9 +85,9 @@ const Dashboard = () => {
   nextEligibleDate.setDate(nextEligibleDate.getDate() + 45);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-red-50">
+    <div className="min-h-screen bg-background transition-colors duration-300">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-red-100 sticky top-0 z-50">
+      <header className="bg-card/80 backdrop-blur-md border-b border-border sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
@@ -96,6 +99,33 @@ const Dashboard = () => {
               </span>
             </div>
             <div className="flex items-center space-x-4">
+              {/* Theme Controls */}
+              <div className="flex items-center space-x-2 border border-border rounded-lg p-1">
+                <Button
+                  variant={theme === 'light' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setTheme('light')}
+                  className="h-7 px-2"
+                >
+                  <Sun className="w-3 h-3" />
+                </Button>
+                <Button
+                  variant={theme === 'dark' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setTheme('dark')}
+                  className="h-7 px-2"
+                >
+                  <Moon className="w-3 h-3" />
+                </Button>
+                <Button
+                  variant={theme === 'healthcare' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setTheme('healthcare')}
+                  className="h-7 px-2"
+                >
+                  <Shield className="w-3 h-3" />
+                </Button>
+              </div>
               <Badge variant={isAvailable ? "default" : "secondary"} className="px-3 py-1">
                 {isAvailable ? "Available" : "Unavailable"}
               </Badge>
@@ -103,7 +133,7 @@ const Dashboard = () => {
                 variant="ghost"
                 size="sm"
                 onClick={() => navigate('/profile')}
-                className="text-red-700 hover:text-red-800 hover:bg-red-50"
+                className="text-foreground/70 hover:text-foreground hover:bg-accent"
               >
                 Profile
               </Button>
@@ -111,7 +141,7 @@ const Dashboard = () => {
                 variant="ghost"
                 size="sm"
                 onClick={() => navigate('/')}
-                className="text-red-700 hover:text-red-800 hover:bg-red-50"
+                className="text-foreground/70 hover:text-foreground hover:bg-accent"
               >
                 Logout
               </Button>
@@ -122,12 +152,12 @@ const Dashboard = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back, John!</h1>
-          <p className="text-gray-600">Your blood type: <span className="font-semibold text-red-600">O+</span> • Location: <span className="font-semibold">San Francisco, CA</span></p>
+        <div className="mb-8 animate-fade-in">
+          <h1 className="text-3xl font-bold text-foreground mb-2">Welcome Back, John!</h1>
+          <p className="text-muted-foreground">Your blood type: <span className="font-semibold text-red-600">O+</span> • Location: <span className="font-semibold">San Francisco, CA</span></p>
           <div className="mt-2 flex items-center space-x-4">
             <div className="flex items-center space-x-2">
-              <span className="text-sm text-gray-600">Next eligible:</span>
+              <span className="text-sm text-muted-foreground">Next eligible:</span>
               <span className="text-sm font-medium text-green-600">{nextEligibleDate.toLocaleDateString()}</span>
             </div>
             <div className="flex items-center space-x-2">
@@ -384,19 +414,19 @@ const Dashboard = () => {
               </CardContent>
             </Card>
 
-            {/* Emergency Alert */}
-            <Card className="border-orange-200 bg-gradient-to-br from-orange-50 to-red-50">
-              <CardContent className="p-6">
-                <div className="flex items-center space-x-3 mb-3">
-                  <Bell className="w-6 h-6 text-orange-600" />
-                  <h3 className="font-semibold text-orange-900">Emergency Alert</h3>
-                </div>
-                <p className="text-sm text-orange-800 mb-4">
-                  Critical blood shortage for O- type in your area. Your help could save lives!
-                </p>
-                <Button size="sm" className="bg-orange-600 hover:bg-orange-700 text-white">
-                  Respond Now
-                </Button>
+            {/* Emergency SOS Mode */}
+            <Card className="border-destructive/20 bg-gradient-to-br from-destructive/5 to-destructive/10">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2 text-destructive">
+                  <Bell className="w-5 h-5" />
+                  <span>Emergency Response</span>
+                </CardTitle>
+                <CardDescription>
+                  Instant emergency blood request broadcasting
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <EmergencySOSButton />
               </CardContent>
             </Card>
           </div>
