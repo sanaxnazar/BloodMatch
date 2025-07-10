@@ -67,9 +67,7 @@ const Index = () => {
           <div className="animate-fade-in">
             <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 mb-6">
               Save Lives with
-              <span className="block bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">
-                Smart Blood Matching
-              </span>
+              <span className="block bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">HemoGlobe</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
               Connect blood donors and seekers instantly through our AI-powered matching system. 
