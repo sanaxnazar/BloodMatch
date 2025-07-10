@@ -1,0 +1,121 @@
+# BloodMatch Application
+
+## Overview
+
+BloodMatch is a full-stack React application built with Express.js backend that connects blood donors with seekers. The application uses modern web technologies including React, TypeScript, shadcn/ui components, and Drizzle ORM with PostgreSQL for data persistence.
+
+## User Preferences
+
+Preferred communication style: Simple, everyday language.
+
+## System Architecture
+
+### Frontend Architecture
+- **Framework**: React 18 with TypeScript
+- **Build Tool**: Vite for fast development and optimized builds
+- **UI Framework**: shadcn/ui components built on Radix UI primitives
+- **Styling**: Tailwind CSS with CSS custom properties for theming
+- **State Management**: React Query (@tanstack/react-query) for server state
+- **Routing**: React Router DOM for client-side navigation
+- **Form Handling**: React Hook Form with Zod validation
+
+### Backend Architecture
+- **Runtime**: Node.js with Express.js framework
+- **Language**: TypeScript with ES modules
+- **Database**: PostgreSQL with Drizzle ORM
+- **Database Provider**: Neon Database (@neondatabase/serverless)
+- **Session Management**: Express sessions with PostgreSQL store
+- **Development**: Hot reload with custom Vite integration
+
+### Database Schema
+- **Users Table**: Stores user profiles with blood type, location, and medical information
+- **Schema Location**: `shared/schema.ts` using Drizzle schema definitions
+- **Validation**: Zod schemas for type-safe data validation
+
+## Key Components
+
+### Frontend Components
+- **Pages**: Index (landing), Register, Login, Dashboard, Profile, Features, NotFound
+- **UI Components**: Complete shadcn/ui component library with custom theming
+- **Features**: 
+  - EligibilityQuiz component for donor qualification
+  - MapView component for location-based matching
+  - Dark/light mode theming support
+  - Responsive design with mobile-first approach
+
+### Backend Components
+- **Storage Interface**: Abstract storage layer with in-memory implementation
+- **Routes**: RESTful API endpoints (currently minimal setup)
+- **Database**: Drizzle ORM with PostgreSQL dialect
+- **Middleware**: Request logging, JSON parsing, error handling
+
+### Shared Components
+- **Schema**: Shared TypeScript types and Zod validation schemas
+- **Database Models**: User model with insert/select type inference
+
+## Data Flow
+
+### User Registration/Authentication
+1. User fills registration form (donor/seeker)
+2. Form validation using Zod schemas
+3. Data sent to backend API
+4. User creation through storage interface
+5. Session establishment for authenticated state
+
+### Blood Matching Process
+1. Eligible donors/seekers are matched based on:
+   - Blood type compatibility
+   - Geographic proximity
+   - Urgency level
+   - Availability status
+2. Real-time notifications for matches
+3. Map-based visualization of nearby matches
+
+### Profile Management
+1. Users can update personal information
+2. Medical history and eligibility tracking
+3. Donation history and statistics
+4. Privacy and notification preferences
+
+## External Dependencies
+
+### Core Dependencies
+- **@neondatabase/serverless**: PostgreSQL database connection
+- **drizzle-orm**: Type-safe database ORM
+- **@tanstack/react-query**: Server state management
+- **@radix-ui/***: Headless UI components
+- **react-hook-form**: Form handling
+- **zod**: Runtime type validation
+
+### Development Dependencies
+- **vite**: Build tool and dev server
+- **tsx**: TypeScript execution
+- **tailwindcss**: Utility-first CSS framework
+- **@replit/vite-plugin-***: Replit-specific development tools
+
+## Deployment Strategy
+
+### Development
+- **Dev Server**: Vite dev server with Express backend
+- **Hot Reload**: File watching for both frontend and backend
+- **Database**: Connected to Neon PostgreSQL instance
+- **Environment**: NODE_ENV=development
+
+### Production Build
+- **Frontend**: Vite build to `dist/public`
+- **Backend**: esbuild bundle to `dist/index.js`
+- **Static Assets**: Served by Express in production
+- **Database**: Production PostgreSQL via DATABASE_URL
+
+### Database Management
+- **Migrations**: Drizzle Kit for schema migrations
+- **Schema Push**: Direct schema synchronization for development
+- **Connection**: Serverless PostgreSQL connection pooling
+
+### Configuration
+- **Environment Variables**: DATABASE_URL required for database connection
+- **Build Scripts**: Separate dev/build/start commands
+- **TypeScript**: Strict type checking with path aliases
+- **Styling**: PostCSS with Tailwind CSS processing
+
+The application follows a modern full-stack architecture with type safety throughout, responsive design, and scalable database design suitable for a blood donation matching platform.
