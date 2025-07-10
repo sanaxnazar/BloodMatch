@@ -5,11 +5,20 @@ import * as schema from "@shared/schema";
 
 neonConfig.webSocketConstructor = ws;
 
-if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL must be set. Did you forget to provision a database?",
-  );
+// Check for Supabase connection string or fallback
+const databaseUrl = process.env.DATABASE_URL || process.env.SUPABASE_URL;
+
+let pool: Pool | null = null;
+let db: any = null;
+
+if (!databaseUrl) {
+  console.warn("Database URL not found. Please ensure Supabase is properly connected.");
+  // Use null values for development - this will be replaced when Supabase is fully configured
+  pool = null;
+  db = null;
+} else {
+  pool = new Pool({ connectionString: databaseUrl });
+  db = drizzle({ client: pool, schema });
 }
 
-export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-export const db = drizzle({ client: pool, schema });
+export { pool, db };
