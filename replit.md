@@ -20,12 +20,27 @@ Preferred communication style: Simple, everyday language.
 - **Form Handling**: React Hook Form with Zod validation
 
 ### Backend Architecture
+
+#### Node.js Backend (Primary)
 - **Runtime**: Node.js with Express.js framework
 - **Language**: TypeScript with ES modules
 - **Database**: PostgreSQL with Drizzle ORM
 - **Database Provider**: Neon Database (@neondatabase/serverless)
 - **Session Management**: Express sessions with PostgreSQL store
 - **Development**: Hot reload with custom Vite integration
+
+#### Java Backend (Secondary - Spring Boot)
+- **Framework**: Spring Boot 3.2.0 with Java 21
+- **Architecture**: RESTful API with layered architecture (Controller → Service → Repository → Entity)
+- **Database**: Spring Data JPA with PostgreSQL
+- **Security**: Spring Security with JWT authentication
+- **Build Tool**: Maven with comprehensive dependency management
+- **Features**: 
+  - Complete CRUD operations for Users, Donations, and Matches
+  - Automatic blood donor-seeker matching algorithm
+  - CORS configuration for frontend integration
+  - Input validation with Jakarta Bean Validation
+  - Comprehensive repository queries with custom JPA methods
 
 ### Database Schema
 - **PostgreSQL Database**: Production-ready database with Neon serverless connection
@@ -47,10 +62,22 @@ Preferred communication style: Simple, everyday language.
   - Responsive design with mobile-first approach
 
 ### Backend Components
-- **Storage Interface**: Abstract storage layer with in-memory implementation
-- **Routes**: RESTful API endpoints (currently minimal setup)
-- **Database**: Drizzle ORM with PostgreSQL dialect
+
+#### Node.js Backend Components
+- **Storage Interface**: Database storage layer with comprehensive CRUD operations
+- **Routes**: Complete RESTful API endpoints for users, donations, matches, and authentication
+- **Database**: Drizzle ORM with PostgreSQL dialect and relations
 - **Middleware**: Request logging, JSON parsing, error handling
+
+#### Java Backend Components
+- **Entities**: JPA entities with proper relationships and lifecycle callbacks
+  - User entity with UserDetails implementation for security
+  - Donation entity with donor/seeker relationships
+  - Match entity with compatibility scoring
+- **Repositories**: Spring Data JPA repositories with custom query methods
+- **Services**: Business logic layer with comprehensive CRUD and matching operations
+- **Controllers**: REST API endpoints with proper HTTP status codes and error handling
+- **Configuration**: CORS, security, and database connection management
 
 ### Shared Components
 - **Schema**: Shared TypeScript types and Zod validation schemas
@@ -116,9 +143,27 @@ Preferred communication style: Simple, everyday language.
 - **Connection**: Serverless PostgreSQL connection pooling
 
 ### Configuration
+
+#### Node.js Configuration
 - **Environment Variables**: DATABASE_URL required for database connection
 - **Build Scripts**: Separate dev/build/start commands
 - **TypeScript**: Strict type checking with path aliases
 - **Styling**: PostCSS with Tailwind CSS processing
+
+#### Java Configuration
+- **Environment Variables**: DATABASE_URL, JWT secret, CORS origins
+- **Build**: Maven with Spring Boot plugin
+- **Profiles**: Development and production configurations
+- **Database**: Hibernate with automatic schema validation
+- **Startup Script**: Dedicated startup script for Java backend (port 8080)
+
+### Deployment Options
+
+The application now supports dual backend deployment:
+
+1. **Node.js Backend** (Port 5000): Primary backend with TypeScript and Drizzle ORM
+2. **Java Backend** (Port 8080): Alternative backend with Spring Boot and JPA
+
+Both backends connect to the same PostgreSQL database and provide identical API functionality, allowing for flexibility in deployment and technology preferences.
 
 The application follows a modern full-stack architecture with type safety throughout, responsive design, and scalable database design suitable for a blood donation matching platform.
