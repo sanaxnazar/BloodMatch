@@ -28,9 +28,12 @@ Preferred communication style: Simple, everyday language.
 - **Development**: Hot reload with custom Vite integration
 
 ### Database Schema
-- **Users Table**: Stores user profiles with blood type, location, and medical information
-- **Schema Location**: `shared/schema.ts` using Drizzle schema definitions
-- **Validation**: Zod schemas for type-safe data validation
+- **PostgreSQL Database**: Production-ready database with Neon serverless connection
+- **Users Table**: Comprehensive user profiles with blood type, location, medical information, and availability status
+- **Donations Table**: Tracks donation history, status, and scheduling information
+- **Matches Table**: Stores potential donor-seeker matches with compatibility scoring
+- **Schema Location**: `shared/schema.ts` using Drizzle schema definitions with proper relations
+- **Validation**: Zod schemas for type-safe data validation and API request validation
 
 ## Key Components
 
