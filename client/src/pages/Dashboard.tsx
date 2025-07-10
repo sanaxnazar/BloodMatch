@@ -6,9 +6,12 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { Progress } from "@/components/ui/progress";
-import { Heart, Users, MapPin, Bell, Calendar, Shield, Phone, Trophy, Star, Activity } from 'lucide-react';
+import { Heart, Users, MapPin, Bell, Calendar, Shield, Phone, Trophy, Star, Activity, AlertTriangle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
+import EmergencySOSButton from '@/components/EmergencySOSButton';
+import DonorTrustScore from '@/components/DonorTrustScore';
+import BloodDemandHeatmap from '@/components/BloodDemandHeatmap';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -92,7 +95,7 @@ const Dashboard = () => {
                 <Heart className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">
-                BloodMatch
+                HemoGlobe
               </span>
             </div>
             <div className="flex items-center space-x-4">
@@ -193,8 +196,10 @@ const Dashboard = () => {
           {/* Left Column - Matches & History */}
           <div className="lg:col-span-2">
             <Tabs defaultValue="matches" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-5">
                 <TabsTrigger value="matches">Smart Matches</TabsTrigger>
+                <TabsTrigger value="emergency">Emergency</TabsTrigger>
+                <TabsTrigger value="heatmap">Live Demand</TabsTrigger>
                 <TabsTrigger value="history">History</TabsTrigger>
                 <TabsTrigger value="achievements">Achievements</TabsTrigger>
               </TabsList>
@@ -260,6 +265,28 @@ const Dashboard = () => {
                     </CardContent>
                   </Card>
                 ))}
+              </TabsContent>
+
+              <TabsContent value="emergency" className="space-y-6">
+                <div className="grid grid-cols-1 gap-6">
+                  <EmergencySOSButton 
+                    userLocation="San Francisco, CA"
+                    bloodType="O+"
+                  />
+                  <DonorTrustScore 
+                    donorStats={{
+                      totalDonations: 12,
+                      responseRate: 95,
+                      reliability: 88,
+                      lastDonation: "3 months ago",
+                      isVerified: true
+                    }}
+                  />
+                </div>
+              </TabsContent>
+
+              <TabsContent value="heatmap" className="space-y-6">
+                <BloodDemandHeatmap />
               </TabsContent>
               
               <TabsContent value="history" className="space-y-4">
@@ -397,6 +424,24 @@ const Dashboard = () => {
                 <Button size="sm" className="bg-orange-600 hover:bg-orange-700 text-white">
                   Respond Now
                 </Button>
+              </CardContent>
+            </Card>
+
+            {/* Advanced Features Notice */}
+            <Card className="border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50">
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-3 mb-3">
+                  <AlertTriangle className="w-6 h-6 text-blue-600" />
+                  <h3 className="font-semibold text-blue-900">New Features!</h3>
+                </div>
+                <p className="text-sm text-blue-800 mb-4">
+                  Try our Emergency SOS button and view the live blood demand heatmap in the new tabs above!
+                </p>
+                <div className="flex gap-2 text-xs">
+                  <Badge variant="outline" className="border-blue-300 text-blue-700">Emergency SOS</Badge>
+                  <Badge variant="outline" className="border-blue-300 text-blue-700">Trust Score</Badge>
+                  <Badge variant="outline" className="border-blue-300 text-blue-700">Live Demand</Badge>
+                </div>
               </CardContent>
             </Card>
           </div>
