@@ -1,7 +1,7 @@
-package com.bloodmatch.service;
+package com.hemoglobe.service;
 
-import com.bloodmatch.entity.Donation;
-import com.bloodmatch.repository.DonationRepository;
+import com.hemoglobe.entity.Donation;
+import com.hemoglobe.repository.DonationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

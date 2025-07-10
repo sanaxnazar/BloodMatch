@@ -1,7 +1,7 @@
-package com.bloodmatch.controller;
+package com.hemoglobe.controller;
 
-import com.bloodmatch.entity.User;
-import com.bloodmatch.service.UserService;
+import com.hemoglobe.entity.User;
+import com.hemoglobe.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,8 +1,8 @@
-# BloodMatch Application
+# HemoGlobe Application
 
 ## Overview
 
-BloodMatch is a full-stack React application built with Express.js backend that connects blood donors with seekers. The application uses modern web technologies including React, TypeScript, shadcn/ui components, and Drizzle ORM with PostgreSQL for data persistence.
+HemoGlobe is a full-stack React application built with Express.js backend that connects blood donors with seekers. The application uses modern web technologies including React, TypeScript, shadcn/ui components, and Drizzle ORM with PostgreSQL for data persistence.
 
 ## User Preferences
 

@@ -1,6 +1,6 @@
-# BloodMatch Java Backend
+# HemoGlobe Java Backend
 
-This is the Spring Boot Java backend for the BloodMatch application, providing RESTful API endpoints for blood donation matching.
+This is the Spring Boot Java backend for the HemoGlobe application, providing RESTful API endpoints for blood donation matching.
 
 ## Architecture Overview
 
@@ -15,8 +15,8 @@ This is the Spring Boot Java backend for the BloodMatch application, providing R
 
 ```
 java-backend/
-├── src/main/java/com/bloodmatch/
-│   ├── BloodMatchApplication.java          # Main application entry point
+├── src/main/java/com/hemoglobe/
+│   ├── HemoGlobeApplication.java          # Main application entry point
 │   ├── config/
 │   │   └── WebConfig.java                  # CORS and web configuration
 │   ├── controller/                         # REST API endpoints

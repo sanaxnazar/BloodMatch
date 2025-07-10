@@ -1,7 +1,7 @@
-package com.bloodmatch.controller;
+package com.hemoglobe.controller;
 
-import com.bloodmatch.entity.Donation;
-import com.bloodmatch.service.DonationService;
+import com.hemoglobe.entity.Donation;
+import com.hemoglobe.service.DonationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

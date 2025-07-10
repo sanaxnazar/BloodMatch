@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Starting BloodMatch Java Backend..."
+echo "Starting HemoGlobe Java Backend..."
 
 # Set environment variables
 export DATABASE_URL=${DATABASE_URL}

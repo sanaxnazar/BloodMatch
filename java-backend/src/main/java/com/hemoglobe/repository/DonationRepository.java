@@ -1,6 +1,6 @@
-package com.bloodmatch.repository;
+package com.hemoglobe.repository;
 
-import com.bloodmatch.entity.Donation;
+import com.hemoglobe.entity.Donation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

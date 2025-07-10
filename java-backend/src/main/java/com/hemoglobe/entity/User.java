@@ -1,4 +1,4 @@
-package com.bloodmatch.entity;
+package com.hemoglobe.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;

@@ -5,13 +5,13 @@
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.bloodmatch</groupId>
-    <artifactId>bloodmatch-backend</artifactId>
+    <groupId>com.hemoglobe</groupId>
+    <artifactId>hemoglobe-backend</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>BloodMatch Backend</name>
-    <description>Java Spring Boot backend for BloodMatch application</description>
+    <name>HemoGlobe Backend</name>
+    <description>Java Spring Boot backend for HemoGlobe application</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

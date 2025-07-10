@@ -1,4 +1,4 @@
-package com.bloodmatch.config;
+package com.hemoglobe.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

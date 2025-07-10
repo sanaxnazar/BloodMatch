@@ -1,11 +1,11 @@
-package com.bloodmatch;
+package com.hemoglobe;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BloodMatchApplication {
+public class HemoGlobeApplication {
     public static void main(String[] args) {
-        SpringApplication.run(BloodMatchApplication.class, args);
+        SpringApplication.run(HemoGlobeApplication.class, args);
     }
 }
