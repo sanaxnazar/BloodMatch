@@ -36,21 +36,6 @@ All colors MUST be HSL.
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    /* BloodMatch Brand Colors */
-    --blood-red: 0 84% 60%;
-    --blood-red-light: 0 70% 70%;
-    --blood-red-dark: 0 90% 50%;
-    
-    /* Emergency Theme Colors */
-    --emergency-bg: 0 90% 50%;
-    --emergency-foreground: 0 0% 100%;
-    --emergency-accent: 45 100% 60%;
-    
-    /* Healthcare Theme Colors */
-    --healthcare-primary: 200 100% 50%;
-    --healthcare-secondary: 120 60% 50%;
-    --healthcare-bg: 200 30% 98%;
-
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
@@ -106,36 +91,6 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .emergency {
-    --background: var(--emergency-bg);
-    --foreground: var(--emergency-foreground);
-    --card: 0 70% 30%;
-    --card-foreground: var(--emergency-foreground);
-    --primary: var(--emergency-accent);
-    --primary-foreground: 0 0% 10%;
-    --secondary: 0 50% 60%;
-    --secondary-foreground: var(--emergency-foreground);
-    --accent: var(--emergency-accent);
-    --accent-foreground: 0 0% 10%;
-    --border: 0 60% 70%;
-    --ring: var(--emergency-accent);
-  }
-
-  .healthcare {
-    --background: var(--healthcare-bg);
-    --foreground: 200 100% 10%;
-    --card: 0 0% 100%;
-    --card-foreground: 200 100% 10%;
-    --primary: var(--healthcare-primary);
-    --primary-foreground: 0 0% 100%;
-    --secondary: var(--healthcare-secondary);
-    --secondary-foreground: 0 0% 100%;
-    --accent: var(--healthcare-primary);
-    --accent-foreground: 0 0% 100%;
-    --border: 200 30% 80%;
-    --ring: var(--healthcare-primary);
   }
 }
 
