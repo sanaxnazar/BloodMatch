@@ -159,9 +159,7 @@ const Index = () => {
             size="lg"
             onClick={() => navigate('/register')}
             className="bg-white text-red-700 hover:bg-red-50 px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-          >
-            Join BloodMatch Today
-          </Button>
+          >Join HemoGlobe Today</Button>
         </div>
       </section>
     </div>
